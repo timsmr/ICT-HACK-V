@@ -1,0 +1,25 @@
+@import '../../../scss/variables';
+
+.header {
+    font-size: 35px;
+    font-weight: 400;
+    // max-width: 50%;
+    color: $header;
+    text-align: center;
+}
+
+.style_bold {
+    font-size: 50px;
+    font-weight: 600;
+}
+
+.style_code {
+    position: absolute;
+    top: 50px;
+    font-size: 35px;
+    font-weight: 800;
+}
+
+.style_italic {
+    font-style: italic;
+}
