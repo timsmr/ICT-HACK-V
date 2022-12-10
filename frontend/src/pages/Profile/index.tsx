@@ -1,5 +1,6 @@
 import React from 'react'
 import Button from 'shared/components/Button'
+import Footer from 'shared/components/Footer'
 import Header from 'shared/components/Header'
 import InputField from 'shared/components/InputField'
 import { Tag } from 'shared/components/Tag'
@@ -55,6 +56,8 @@ export const Profile = ({ }: I.ProfileProps) => {
                 </li>
                 <Button className={styles.save_btn} label='Сохранить' buttonStyle='primary' />
             </ul>
+
+            <Footer />
         </>
     )
 }

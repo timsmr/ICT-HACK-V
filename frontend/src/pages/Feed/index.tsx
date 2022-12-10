@@ -1,5 +1,6 @@
 import React from 'react'
 import Button from 'shared/components/Button'
+import Footer from 'shared/components/Footer'
 import Header from 'shared/components/Header'
 import { Tag } from 'shared/components/Tag'
 import { ToggleButton } from 'shared/components/ToggleButton'
@@ -20,7 +21,6 @@ export const Feed = ({ }: I.FeedProps) => {
     return (
         <>
             <Header />
-
             <ToggleButton className={styles.toggleButton} options={options} />
 
             <Card
@@ -48,7 +48,7 @@ export const Feed = ({ }: I.FeedProps) => {
                 salary='50 000 руб/мес'
                 tags={['python', 'machine learning']}
             />
-
+            <Footer />
         </>
     )
 }

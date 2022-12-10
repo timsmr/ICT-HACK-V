@@ -1,0 +1,41 @@
+.footerContainer {
+    // position: absolute;cd 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #202020;
+    color: #ededed;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap-reverse;
+    justify-content: space-between;
+    width: clamp(200px, 75%, 1420px);
+    padding: 35px 0;
+}
+
+.footerItem {
+    font-size: 18px;
+}
+
+.telegramLogo {
+    width: 50px;
+    height: 40px;
+}
+
+@media screen and (max-width: 953px) {
+    .footerItem {
+        font-size: 14px;
+    }
+
+    .telegramLogo {
+        width: 40px;
+        height: 30px;
+    }
+}

@@ -4,6 +4,7 @@
     align-items: center;
     justify-content: center;
     height: 94px;
+    left: 0;
     width: 100%;
     background-color: #202020;
     color: #ededed;
@@ -46,6 +47,10 @@
     cursor: pointer;
 }
 
+.headerBtn {
+    font-size: 18px;
+}
+
 @media only screen and (max-width: 1055px) {
 
     .header {
@@ -66,16 +71,7 @@
     }
 
     .headerBtn {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100vw;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 1.5rem;
-        transform: translateY(-100vh);
+        display: none;
     }
 
     .avatar {

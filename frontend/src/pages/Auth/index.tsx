@@ -9,6 +9,7 @@ import { Link, useParams } from 'react-router-dom'
 
 import * as I from './types/types';
 import { useStore } from '../../stores';
+import Header from 'shared/components/Header';
 
 export const Auth = observer(function Auth({ className }: I.AuthProps) {
     const AuthStyles = cn(
@@ -26,14 +27,17 @@ export const Auth = observer(function Auth({ className }: I.AuthProps) {
     }, [authType]);
 
     return (
-        <div className={AuthStyles}>
-            {/* <Link to='/' ><BackButton /></Link> */}
-            {
-                authType === 'login'
-                    ? <LogIn />
-                    : authType === 'register'
-                    && <Register />
-            }
-        </div>
+        <>
+            <Header />
+            <div className={AuthStyles}>
+
+                {
+                    authType === 'login'
+                        ? <LogIn />
+                        : authType === 'register'
+                        && <Register />
+                }
+            </div>
+        </>
     )
 });

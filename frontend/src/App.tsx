@@ -12,6 +12,8 @@ import { PrivateRoute } from "shared/components/PrivateRoute";
 import { Feed } from "pages/Feed";
 import { Profile } from "pages/Profile";
 import { Home } from "pages/Home";
+import Header from "shared/components/Header";
+import Footer from "shared/components/Footer";
 
 
 const App = () => {
@@ -23,15 +25,28 @@ const App = () => {
   }, [init]);
 
   return (
-    <div className='wrapper'>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/feed" element={<Feed />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/auth/:authType" element={<Auth />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </div>
+    <>
+      <div className='wrapper'>
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/feed" element={
+            <PrivateRoute>
+              <Feed />
+            </PrivateRoute>
+          } />
+          <Route path="/profile" element={
+            <PrivateRoute>
+              <Profile />
+            </PrivateRoute>
+          } />
+          <Route path="/auth/:authType" element={<Auth />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+
+      </div>
+    </>
+
 
   );
 }

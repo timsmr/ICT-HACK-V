@@ -24,7 +24,7 @@ const LogIn = ({ }: I.LogInProps) => {
 
     const onChangeLoginInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         setLoginValue(event.target.value);
-        setLoginStyle('');
+        ValidateEmail(event.target.value) ? setLoginStyle('') : setLoginStyle('warning');
     }
 
     const onChangePasswordInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,40 +32,41 @@ const LogIn = ({ }: I.LogInProps) => {
         setPasswordStyle('');
     }
 
+    const ValidateEmail = (input: string) => {
+        var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        return input.match(validRegex) ? true : false;
+    }
+
     const onSubmit = async () => {
 
-        if (loginValue && passwordValue) {
-            await axios.post("/auth/login", {
-                "grant_type": "password",
-                "username": loginValue,
+        if (loginValue && passwordValue && ValidateEmail(loginValue)) {
+            await axios.post("/student/sign_in", {
+                "email": loginValue,
                 "password": passwordValue
-            }, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
             })
                 .then((res) => {
-                    currentUser.setUserToken(res.data.access_token)
-                    localStorage.setItem('userToken', res.data.access_token)
+                    currentUser.setUserToken(res.data.token)
+                    localStorage.setItem('userToken', res.data.token)
                 })
                 .catch((err) => {
                     console.log(err);
                 });
 
-            navigate('/');
+            navigate('/feed');
         } else {
             !loginValue && setLoginStyle('warning');
-            !passwordStyle && setPasswordStyle('warning');
+            !passwordValue && setPasswordStyle('warning');
         }
     };
 
     return (
         <>
-            {/* <Header className='mb-23' text='Вход' /> */}
+            {/* <h1>ВХод</h1> */}
             <InputField
                 className='mb-15'
-                inputPlaceholder='Логин'
+                inputPlaceholder='Email'
                 value={loginValue}
+                inputType={'email'}
                 inputStyle={loginStyle}
                 onChange={onChangeLoginInput}
             />

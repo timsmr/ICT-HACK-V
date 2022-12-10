@@ -4,10 +4,6 @@ import { useStore } from 'stores';
 
 import Button from '../../../../shared/components/Button'
 
-import Header from 'shared/components/Header';
-
-// import Header from '../../../../shared/components/Header';
-
 import Help from '../../../../shared/components/Help';
 import Textarea from 'shared/components/Textarea'
 import InputField from '../../../../shared/components/InputField'
@@ -19,6 +15,13 @@ import axios from 'axios';
 
 const Register = ({ }: I.RegisterProps) => {
 
+
+    const [firstNameValue, setFirstNameValue] = useState('');
+    const [lastNameValue, setLastNameValue] = useState('');
+    const [phoneValue, setPhoneValue] = useState('');
+    const [firstNameStyle, setFirstNameStyle] = useState<InputStyle>('');
+    const [lastNameStyle, setLastNameStyle] = useState<InputStyle>('');
+    const [phoneStyle, setPhoneStyle] = useState<InputStyle>('');
     const [loginValue, setLoginValue] = useState('');
     const [passwordValue, setPasswordValue] = useState('');
     const [secondPasswordValue, setSecondPasswordValue] = useState('');
@@ -34,6 +37,21 @@ const Register = ({ }: I.RegisterProps) => {
 
     const { currentUser } = useStore();
     const navigate = useNavigate();
+
+    const onChangeFirstNameInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setFirstNameValue(event.target.value);
+        setFirstNameStyle('');
+    }
+
+    const onChangeLastNameInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setLastNameValue(event.target.value);
+        setLastNameStyle('');
+    }
+
+    const onChangePhoneInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setPhoneValue(event.target.value);
+        setPhoneStyle('');
+    }
 
     const onChangeLoginInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         setLoginValue(event.target.value);
@@ -60,10 +78,13 @@ const Register = ({ }: I.RegisterProps) => {
     }
 
     const onNextClick = () => {
-        if (passwordValue === secondPasswordValue && loginValue && passwordValue) {
+        if (passwordValue === secondPasswordValue && loginValue && passwordValue && firstNameValue && lastNameValue && phoneValue) {
             setIsValidated(true)
         } else {
             !loginValue && setLoginStyle('warning');
+            !firstNameValue && setFirstNameStyle('warning')
+            !lastNameValue && setLastNameStyle('warning')
+            !phoneValue && setPhoneStyle('warning')
             if (passwordValue !== secondPasswordValue || !passwordValue) {
                 setPasswordStyle('warning');
                 setSecondPasswordStyle('warning');
@@ -117,12 +138,11 @@ const Register = ({ }: I.RegisterProps) => {
             {
                 isValidated
                     ? <>
-                        {/* < Header className={styles.headerRegisterDetail} text='Остался последний шаг: заполни свои данные, чтобы твоим друзьям было легче подобрать тебе подарок!' /> */}
                         <InputField
                             className={styles.inputRegisterDetail}
                             inputPlaceholder='Имя'
-                            inputStyle={nameStyle}
-                            value={nameValue}
+                            inputStyle={firstNameStyle}
+                            value={firstNameValue}
                             onChange={onChangeNameInput}
                         />
                         <Textarea
@@ -139,10 +159,30 @@ const Register = ({ }: I.RegisterProps) => {
                         />
                     </>
                     : <>
-                        {/* <Header className='mb-23' text='Регистрация' /> */}
                         <InputField
                             className='mb-15'
-                            inputPlaceholder='Логин'
+                            inputPlaceholder='Фамилия'
+                            value={lastNameValue}
+                            inputStyle={lastNameStyle}
+                            onChange={onChangeLastNameInput}
+                        />
+                        <InputField
+                            className='mb-15'
+                            inputPlaceholder='Имя'
+                            value={firstNameValue}
+                            inputStyle={firstNameStyle}
+                            onChange={onChangeFirstNameInput}
+                        />
+                        <InputField
+                            className='mb-15'
+                            inputPlaceholder='Номер телефона'
+                            value={phoneValue}
+                            inputStyle={phoneStyle}
+                            onChange={onChangePhoneInput}
+                        />
+                        <InputField
+                            className='mb-15'
+                            inputPlaceholder='Email'
                             value={loginValue}
                             inputStyle={loginStyle}
                             onChange={onChangeLoginInput}

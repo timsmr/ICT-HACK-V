@@ -9,9 +9,8 @@ import styles from './index.module.scss'
 export function Home() {
     return (
         <>
-        <Header/>
-        <p>я х</p>
-        <Footer/>
+            <Header />
+            <Footer />
         </>
     )
 
