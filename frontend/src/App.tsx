@@ -10,6 +10,7 @@ import { useStore } from "./stores";
 import { useLayoutEffect } from "react";
 import { PrivateRoute } from "shared/components/PrivateRoute";
 import { Feed } from "pages/Feed";
+import { Profile } from "pages/Profile";
 
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
     <div className='wrapper'>
       <Routes>
         <Route path="/feed" element={<Feed />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/auth/:authType" element={<Auth />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
