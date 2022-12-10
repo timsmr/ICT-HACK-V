@@ -1,0 +1,111 @@
+@import 'scss/_variables';
+
+.card {
+    display: flex;
+    flex-direction: column;
+    // width: 94rem;
+    width: clamp(28rem, 50vw, 94rem);
+    height: clamp(23.6rem, 25vh, 31.2rem);
+    padding: 20px 25px;
+    justify-content: space-between;
+    background-color: $background-elements-color;
+    color: #ededed;
+    border-radius: 22px;
+}
+
+.header_organizer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.header {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.organizer {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.description_salary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.description {
+    margin: 0;
+    width: 50%;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
+}
+
+.salary {
+    margin: 0;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.tags_signup {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tags {
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+
+.tag {
+    margin-right: 10px;
+}
+
+@media screen and (max-width: 953px) {
+    .card {
+        flex-direction: column;
+        height: clamp(23.6rem, 40vh, 50rem);
+        padding: 16px 20px;
+    }
+
+    .header_organizer {
+        flex-direction: column;
+    }
+
+    .header {
+        margin-bottom: 6px;
+    }
+
+    .description_salary {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .description {
+        width: 100%;
+        margin-bottom: 7px;
+    }
+
+    .tags_signup {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .tags {
+        display: flex;
+        list-style: none;
+        padding: 0;
+    }
+
+    .tag {
+        margin-right: 10px;
+    }
+
+    .btn_signup {
+        margin-top: 20px;
+        width: 100%;
+    }
+}

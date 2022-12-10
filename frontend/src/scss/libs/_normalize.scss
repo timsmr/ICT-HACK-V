@@ -101,7 +101,10 @@ html {
         font-size: 100%; // 1
     }
 
+    // font-size: clamp(2px, calc(), 10px);
+    font-size: 10px;
     background: $background;
+    background-color: #343434;
     color: $color;
     -webkit-text-size-adjust: 100%; // 2
     -ms-text-size-adjust: 100%; // 2

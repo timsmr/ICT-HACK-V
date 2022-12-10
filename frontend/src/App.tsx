@@ -9,6 +9,7 @@ import { NotFound } from './pages/NotFound'
 import { useStore } from "./stores";
 import { useLayoutEffect } from "react";
 import { PrivateRoute } from "shared/components/PrivateRoute";
+import { Feed } from "pages/Feed";
 
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
   return (
     <div className='wrapper'>
       <Routes>
+        <Route path="/feed" element={<Feed />} />
         <Route path="/auth/:authType" element={<Auth />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
