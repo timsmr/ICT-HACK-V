@@ -1,10 +1,14 @@
 from pydantic import BaseModel
-
-
-class OrganizationModel(BaseModel):
+    
+    
+class OrganizationChangeInfoModel(BaseModel):
+    email: str
     name: str
     description: str
-    email: str
     contacts: str
     specialization: str
+    
+    
+class OrganizationModel(OrganizationChangeInfoModel):
+    email: str
     password: str

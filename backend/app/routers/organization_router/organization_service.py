@@ -43,3 +43,16 @@ class OrganizationService(BaseService):
             token=new_token.token
         )
         
+    def change_organization_inf(self, body: OrganizationModel):
+        is_account_exist(body.email, True, OrganizationEntity)
+        session.execute(update(OrganizationEntity).
+                        where(OrganizationEntity.email == body.email).
+                        values(
+                            name = body.name,
+                            description = body.description,
+                            contacts = body.contacts,
+                            specialization = body.specialization,
+                        )
+                        )
+        session.commit()
+        return session.query(OrganizationEntity).filter_by(email=body.email).order_by(OrganizationEntity.id).first()
