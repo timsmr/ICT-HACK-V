@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class StudentModel(BaseModel):
+class StudentChangeInfoModel(BaseModel):
     first_name: str
     last_name: str
     bio: str
@@ -9,9 +9,12 @@ class StudentModel(BaseModel):
     hard_soft_skills: str
     projects: str
     telegram: str
-    email: str
     phone_number: str
     linkedin: str
     site: str
+    email: str
+    
+    
+class StudentModel(StudentChangeInfoModel):
     password: str
     

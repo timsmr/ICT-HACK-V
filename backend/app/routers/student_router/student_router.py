@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from app.dbManager.Entities import StudentEntity, StudentTokenEntity
 from app.routers.student_router.student_service import StudentService
-from app.routers.student_router.student_models import StudentModel
+from app.routers.student_router.student_models import StudentChangeInfoModel, StudentModel
 from app.routers.common_functions.common_models import AccountVerificationModel, TokenModel
 
 
@@ -27,3 +27,8 @@ async def create_user(body: StudentModel):
 @student_router.get("/sign_in")
 async def sign_in(body: AccountVerificationModel):
     return service.verify_user(body, StudentEntity, StudentTokenEntity)
+
+
+@student_router.patch("/change_info")
+async def change_info(body: StudentChangeInfoModel):
+    return service.change_student_inf(body)
