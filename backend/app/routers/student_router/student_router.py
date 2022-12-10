@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from app.dbManager.Entities import StudentEntity, StudentTokenEntity
 from app.routers.student_router.student_service import StudentService
 from app.routers.student_router.student_models import StudentModel
-from app.routers.common_functions.common_models import AccountVerificationModel
+from app.routers.common_functions.common_models import AccountVerificationModel, TokenModel
 
 
 student_router = APIRouter(
@@ -16,8 +16,8 @@ service = StudentService()
 
 
 @student_router.get("/")
-async def hello_function():
-    return {"success": "student router"}
+async def hello_function(body: TokenModel):
+    return service.get_current_user(body, StudentEntity, StudentTokenEntity)
 
 
 @student_router.post("/create_user")

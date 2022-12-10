@@ -3,7 +3,7 @@ from app.dbManager.Entities import AdminEntity, AdminTokenEntity
 from app.routers.admin_router.admin_models import AdminModel
 
 from app.routers.admin_router.admin_service import AdminService
-from app.routers.common_functions.common_models import AccountVerificationModel
+from app.routers.common_functions.common_models import AccountVerificationModel, TokenModel
 
 admin_router = APIRouter(
     prefix="/admin",
@@ -16,8 +16,8 @@ service = AdminService()
 
 
 @admin_router.get("/")
-async def hello_function():
-    return {"success": "admin router"}
+async def hello_function(body: TokenModel):
+    return service.get_current_user(body, AdminEntity, AdminTokenEntity)
 
 
 @admin_router.post("/create_user")

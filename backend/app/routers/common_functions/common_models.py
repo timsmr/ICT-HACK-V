@@ -10,3 +10,7 @@ class TokenResponseModel(BaseModel):
 class AccountVerificationModel(BaseModel):
     email: str
     password: str
+    
+
+class TokenModel(BaseModel):
+    token: str

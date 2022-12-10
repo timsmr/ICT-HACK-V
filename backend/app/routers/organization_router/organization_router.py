@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from app.dbManager.Entities import OrganizationEntity, OrganizationTokenEntity
-from app.routers.common_functions.common_models import AccountVerificationModel
+from app.routers.common_functions.common_models import AccountVerificationModel, TokenModel
 from app.routers.organization_router.organization_models import OrganizationModel
 
 from app.routers.organization_router.organization_service import OrganizationService
@@ -18,8 +18,8 @@ service = OrganizationService()
 
 
 @organization_router.get("/")
-async def hello_function():
-    return {"success": "organization router"}
+async def hello_function(body: TokenModel):
+    return service.get_current_user(body, OrganizationEntity, OrganizationTokenEntity)
 
 
 @organization_router.post("/create_organization")
