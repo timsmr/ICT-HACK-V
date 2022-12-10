@@ -21,8 +21,8 @@ class StudentModel(StudentChangeInfoModel):
     
 class ResponseModel(BaseModel):
     # ! модель для отклика на резюме
-    user_id: int
-    pet_project_id: int
+    user_email: str
+    project_name: str
     message: str
     project_type: str
     
