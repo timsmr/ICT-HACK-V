@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends
-from app.routers.common_funcions.common_models import AccountVerificationModel
+from app.dbManager.Entities import OrganizationEntity, OrganizationTokenEntity
+from app.routers.common_functions.common_models import AccountVerificationModel
 from app.routers.organization_router.organization_models import OrganizationModel
 
 from app.routers.organization_router.organization_service import OrganizationService
@@ -28,4 +29,4 @@ async def create_organization(body: OrganizationModel):
 
 @organization_router.get("/sign_in")
 async def sign_in(body: AccountVerificationModel):
-    return service.verify_user(body)
+    return service.verify_user(body, OrganizationEntity, OrganizationTokenEntity)

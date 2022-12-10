@@ -1,13 +1,14 @@
 from sqlalchemy import update
 from app.dbManager.dbManager import session
+from app.routers.common_functions.base_service import BaseService
 from app.routers.student_router.student_models import StudentModel
-from app.routers.common_funcions.common_models import AccountVerificationModel, TokenResponseModel
+from app.routers.common_functions.common_models import AccountVerificationModel, TokenResponseModel
 from app.dbManager.Entities import StudentEntity, StudentTokenEntity
-from app.routers.common_funcions.helper_functions import get_hashed_password, create_access_token, get_expires_delta
-from app.routers.common_funcions.exceptions import is_account_excist, verify_password
-class StudentService():
+from app.routers.common_functions.helper_functions import get_hashed_password, create_access_token, get_expires_delta
+from app.routers.common_functions.exceptions import is_account_exist, verify_password
+class StudentService(BaseService):
     def create_user(self, body: StudentModel):
-        is_account_excist(body.email, False, StudentEntity)
+        is_account_exist(body.email, False, StudentEntity)
         created_user = StudentEntity(
             first_name=body.first_name,
             last_name = body.last_name,
@@ -43,23 +44,5 @@ class StudentService():
         return TokenResponseModel(
             user_id=new_token.user_id,
             token=new_token.token
-        )
-        
-        
-    def verify_user(self, body: AccountVerificationModel):
-        user = is_account_excist(body.email, True, StudentEntity)
-        verify_password(body.password, user.password)
-        new_token = create_access_token(user.email)
-        expires_delta = get_expires_delta()
-        print(expires_delta)
-        session.execute(update(StudentTokenEntity).
-                        where(StudentTokenEntity.user_id == user.id).
-                        values(token=new_token,
-                               expire_date=expires_delta)
-                        )
-        session.commit()
-        return TokenResponseModel(
-            user_id=user.id,
-            token=new_token
         )
         

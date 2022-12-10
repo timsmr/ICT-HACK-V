@@ -57,15 +57,17 @@ class OrganizationTokenEntity(Base):
     expire_date = Column(DateTime)
     
 
-class AdministratorEntity(Base):
+class AdminEntity(Base):
     __tablename__ = "administrator"
     
     id = Column(Integer, index=True, primary_key=True, autoincrement=True)
     first_name = Column(String(30))
     last_name = Column(String(30))
+    email = Column(String, unique=True)
+    password = Column(String)
     
 
-class AdministratorToken(Base):
+class AdminTokenEntity(Base):
     __tablename__ = "administrator_token"
     
     id = Column(Integer, index=True, primary_key=True, autoincrement=True)

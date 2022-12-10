@@ -2,9 +2,9 @@ from fastapi import HTTPException
 from app.dbManager.dbManager import session
 from starlette import status
 from app.dbManager.Entities import StudentEntity
-from app.routers.common_funcions.helper_functions import password_context
+from app.routers.common_functions.helper_functions import password_context
 
-def is_account_excist(email, required_statement: bool, entity):
+def is_account_exist(email, required_statement: bool, entity):
     """
     проверяет существование аккаунта с таким email в бд
     required_statement - должен ли существовать
