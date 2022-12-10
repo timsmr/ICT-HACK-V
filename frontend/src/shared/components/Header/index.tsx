@@ -1,19 +1,32 @@
-import React from 'react';
-import cn from 'classnames';
+import React, { useState } from 'react'
+import "./index.modules.scss"
 
-import styles from './index.module.scss';
-import * as I from './types/types';
+import Button from 'shared/components/Button';
 
-const Header = ({ text, headerStyle = 'normal', className, }: I.HeaderProps) => {
-    const headerStyles = cn(
-        styles.header,
-        styles[`style_${headerStyle}`],
-        className
-    );
 
-    return (
-        <h1 className={headerStyles}>{text}</h1>
-    );
+const Header_ = () => {
+    return(
+            <header>
+                <div className="header-left">
+                        <div className="header-logo">
+                            <a href ="/" className="header-logo-link"><img src='./img/itmo.png'/></a> 
+                        </div>
+                </div>
+                    <nav>
+                            <a href="/" className='menu-link'>Лента</a>
+                            <a href="/" className='menu-link'>Компании</a>
+                            <a href="/" className='menu-link'>Студенты</a>
+                    </nav>
+
+                         <Button
+                            label='Создать проект'
+                            buttonStyle='primary'
+                         /> 
+
+
+            </header>
+        
+    )
 }
 
-export default Header;
+export default Header_;
