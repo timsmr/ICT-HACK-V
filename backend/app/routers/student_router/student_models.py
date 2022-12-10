@@ -19,8 +19,14 @@ class StudentModel(StudentChangeInfoModel):
     password: str
     
     
+class ResponseUnsendModel(BaseModel):
+    user_email: str
+    project_name: str
+    project_type: str
+    
+    
 class ResponseModel(BaseModel):
-    # ! модель для отклика на резюме
+    # ! модель для отклика на резюме/презентация
     user_email: str
     project_name: str
     message: str

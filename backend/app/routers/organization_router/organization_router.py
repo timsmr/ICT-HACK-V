@@ -27,7 +27,7 @@ async def create_organization(body: OrganizationModel):
     return service.create_organization(body)
 
 
-@organization_router.get("/sign_in")
+@organization_router.post("/sign_in")
 async def sign_in(body: AccountVerificationModel):
     return service.verify_user(body, OrganizationEntity, OrganizationTokenEntity)
 

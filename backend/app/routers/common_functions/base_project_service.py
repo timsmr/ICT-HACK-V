@@ -8,6 +8,7 @@ class BaseProjectService():
         для пет проекта - pet
         для коммерческого проекта - commercial
         """
+        
         if project_type == "pet":
             new_member = ProjectMemberEntity(
                 user_id = user_id,

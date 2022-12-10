@@ -1,7 +1,7 @@
 from sqlalchemy import update
 from app.dbManager.dbManager import session
 from app.routers.common_functions.base_user_service import BaseUserService
-from app.routers.student_router.student_models import ResponseModel, StudentChangeInfoModel, StudentModel
+from app.routers.student_router.student_models import ResponseModel, ResponseUnsendModel, StudentChangeInfoModel, StudentModel
 from app.routers.common_functions.common_models import AccountVerificationModel, TokenResponseModel
 from app.dbManager.Entities import PetProjectEntity, ResponseEntity, StudentEntity, StudentTokenEntity
 from app.routers.common_functions.helper_functions import get_hashed_password, create_access_token, get_expires_delta
@@ -80,4 +80,13 @@ class StudentService(BaseUserService):
             )
             session.add_all([new_response])
             session.commit()
+        return True
+    
+    
+    def unsend_response(self, body: ResponseUnsendModel):
+        user = is_account_exist(body.user_email, True, StudentEntity)
+        project = is_project_exist(body.project_name, True, PetProjectEntity)
+        response = is_response_already_sent(user.id, project.id, True, "pet")
+        session.delete(response)
+        session.commit()
         return True
