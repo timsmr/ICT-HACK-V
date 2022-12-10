@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from app.dbManager.Entities import AdminEntity, AdminTokenEntity
-from app.routers.admin_router.admin_models import AdminChangeInfoModel, AdminModel
+from app.routers.admin_router.admin_models import AdminChangeInfoModel, AdminModel, OrganizationApprovementModel
 
 from app.routers.admin_router.admin_service import AdminService
 from app.routers.common_functions.common_models import AccountVerificationModel, EmailModel, TokenModel
@@ -37,3 +37,8 @@ async def change_info(body: AdminChangeInfoModel):
 @admin_router.delete("/delete")
 async def delete_organization(body: EmailModel):
     return service.delete_user(body, AdminEntity)
+
+
+@admin_router.patch("/approve_organization")
+async def approve_organization(body: OrganizationApprovementModel):
+    return service.approve_organization(body)

@@ -1,6 +1,6 @@
 from sqlalchemy import update
-from app.dbManager.Entities import AdminEntity, AdminTokenEntity
-from app.routers.admin_router.admin_models import AdminChangeInfoModel, AdminModel
+from app.dbManager.Entities import AdminEntity, AdminTokenEntity, OrganizationEntity
+from app.routers.admin_router.admin_models import AdminChangeInfoModel, AdminModel, OrganizationApprovementModel
 from app.routers.common_functions.base_service import BaseService
 from app.routers.common_functions.common_models import TokenResponseModel
 from app.routers.common_functions.exceptions import is_account_exist
@@ -52,3 +52,15 @@ class AdminService(BaseService):
                         )
         session.commit()
         return session.query(AdminEntity).filter_by(email=body.email).order_by(AdminEntity.id).first()
+    
+    
+    def approve_organization(self, body: OrganizationApprovementModel):
+        organization = is_account_exist(body.organization_email, True, OrganizationEntity)
+        session.execute(update(OrganizationEntity).
+                        where(OrganizationEntity.email == body.organization_email).
+                        values(
+                            approved = True
+                        )
+                        )
+        session.commit()
+        return True

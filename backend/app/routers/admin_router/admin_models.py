@@ -10,3 +10,9 @@ class AdminChangeInfoModel(BaseModel):
 
 class AdminModel(AdminChangeInfoModel):
     password: str
+    
+    
+
+class OrganizationApprovementModel(BaseModel):
+    organization_email: str
+    
