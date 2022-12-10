@@ -1,0 +1,13 @@
+@import '../../../scss/variables';
+
+.help {
+    margin: 0;
+    font-size: 16px;
+    color: $description;
+    font-weight: 400;
+}
+
+.link {
+    border-bottom: 1px solid $description;
+    cursor: pointer;
+}

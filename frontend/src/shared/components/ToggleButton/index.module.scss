@@ -1,0 +1,61 @@
+.toggleButton {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 8px;
+    width: clamp(28rem, 50vw, 94rem);
+    background-color: #282828;
+    border-radius: 40px;
+}
+
+.notActive {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ededed;
+    border-radius: 20px;
+    margin: 0;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-size: 1.8rem;
+    font-weight: 500;
+    background-color: #282828;
+    cursor: pointer;
+}
+
+.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ededed;
+    border-radius: 20px;
+    margin: 0;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-size: 1.8rem;
+    font-weight: 500;
+    background-color: #5F4BFF;
+    cursor: pointer;
+}
+
+
+@media screen and (max-width: 953px) {
+    .toggleButton {
+        padding: 0;
+        width: 90vw;
+        background-color: transparent;
+        overflow: scroll;
+    }
+
+    .active {
+        width: auto;
+        padding: 10px 20px;
+        margin-right: 20px;
+    }
+
+    .notActive {
+        width: auto;
+        padding: 10px 20px;
+        margin-right: 20px;
+    }
+}
