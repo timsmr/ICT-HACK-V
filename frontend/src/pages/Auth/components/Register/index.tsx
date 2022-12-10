@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useStore } from 'stores';
 
 import Button from '../../../../shared/components/Button'
-import Header from '../../../../shared/components/Header';
+// import Header from '../../../../shared/components/Header';
 import Help from '../../../../shared/components/Help';
 import Textarea from 'shared/components/Textarea'
 import InputField from '../../../../shared/components/InputField'
@@ -113,7 +113,7 @@ const Register = ({ }: I.RegisterProps) => {
             {
                 isValidated
                     ? <>
-                        < Header className={styles.headerRegisterDetail} text='Остался последний шаг: заполни свои данные, чтобы твоим друзьям было легче подобрать тебе подарок!' />
+                        {/* < Header className={styles.headerRegisterDetail} text='Остался последний шаг: заполни свои данные, чтобы твоим друзьям было легче подобрать тебе подарок!' /> */}
                         <InputField
                             className={styles.inputRegisterDetail}
                             inputPlaceholder='Имя'
@@ -135,7 +135,7 @@ const Register = ({ }: I.RegisterProps) => {
                         />
                     </>
                     : <>
-                        <Header className='mb-23' text='Регистрация' />
+                        {/* <Header className='mb-23' text='Регистрация' /> */}
                         <InputField
                             className='mb-15'
                             inputPlaceholder='Логин'

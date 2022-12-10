@@ -17,7 +17,7 @@ export const NotFound = ({ className, }: I.NotFoundProps) => {
     return (
         <div className={NotFoundStyles}>
             <Link to='/' ><BackButton /></Link>
-            <Header text='404 Страница не найдена' />
+            {/* <Header text='404 Страница не найдена' /> */}
         </div>
     );
 };

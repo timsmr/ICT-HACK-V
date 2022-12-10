@@ -11,6 +11,7 @@ import { useLayoutEffect } from "react";
 import { PrivateRoute } from "shared/components/PrivateRoute";
 import { Feed } from "pages/Feed";
 import { Profile } from "pages/Profile";
+import { Home } from "pages/Home";
 
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
   return (
     <div className='wrapper'>
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route path="/feed" element={<Feed />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/auth/:authType" element={<Auth />} />

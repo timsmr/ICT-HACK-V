@@ -1,32 +1,38 @@
 import React, { useState } from 'react'
-import "./index.modules.scss"
+import styles from "./index.module.scss"
 
 import Button from 'shared/components/Button';
+import { Link } from 'react-router-dom';
+import { HeaderProps } from './types/types';
 
 
-const Header_ = () => {
-    return(
-            <header>
-                <div className="header-left">
-                        <div className="header-logo">
-                            <a href ="/" className="header-logo-link"><img src='./img/itmo.png'/></a> 
-                        </div>
+const Header = ({ }: HeaderProps) => {
+
+    return (
+        <header className={styles.header}>
+            <div className={styles.wrapper}>
+                <div className={styles.headerLeft}>
+                    <Link to="/" className="header-logo-link">
+                        <img className={styles.headerLogo} src='./img/itmo.png' />
+                    </Link>
                 </div>
-                    <nav>
-                            <a href="/" className='menu-link'>Лента</a>
-                            <a href="/" className='menu-link'>Компании</a>
-                            <a href="/" className='menu-link'>Студенты</a>
-                    </nav>
+                <nav className={styles.nav}>
+                    <Link to="/feed" className={styles.menuLink}>Лента</Link>
+                    <Link to="/feed" className={styles.menuLink}>Компании</Link>
+                    <Link to="/feed" className={styles.menuLink}>Студенты</Link>
+                </nav>
 
-                         <Button
-                            label='Создать проект'
-                            buttonStyle='primary'
-                         /> 
+                <Button
+                    className={styles.headerBtn}
+                    label='Создать проект'
+                    buttonStyle='primary'
+                />
 
+                <span className={styles.avatar}></span>
+            </div>
+        </header>
 
-            </header>
-        
     )
 }
 
-export default Header_;
+export default Header;

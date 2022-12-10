@@ -1,5 +1,6 @@
 import React from 'react'
 import Button from 'shared/components/Button'
+import Header from 'shared/components/Header'
 import InputField from 'shared/components/InputField'
 import { Tag } from 'shared/components/Tag'
 import Textarea from 'shared/components/Textarea'
@@ -20,6 +21,7 @@ export const Profile = ({ }: I.ProfileProps) => {
 
     return (
         <>
+            <Header />
             <ToggleButton className={styles.toggleButton} options={options} />
 
             <ul className={styles.my_data}>

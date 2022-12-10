@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useStore } from 'stores';
 
 import Button from '../../../../shared/components/Button'
-import Header from '../../../../shared/components/Header';
+// import Header from '../../../../shared/components/Header';
 import Help from '../../../../shared/components/Help';
 import InputField from '../../../../shared/components/InputField'
 import { InputStyle } from 'shared/components/InputField/types/types';
@@ -59,7 +59,7 @@ const LogIn = ({ }: I.LogInProps) => {
 
     return (
         <>
-            <Header className='mb-23' text='Вход' />
+            {/* <Header className='mb-23' text='Вход' /> */}
             <InputField
                 className='mb-15'
                 inputPlaceholder='Логин'

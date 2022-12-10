@@ -1,5 +1,6 @@
 import React from 'react'
 import Button from 'shared/components/Button'
+import Header from 'shared/components/Header'
 import { Tag } from 'shared/components/Tag'
 import { ToggleButton } from 'shared/components/ToggleButton'
 import { Card } from './components/Card'
@@ -18,6 +19,8 @@ export const Feed = ({ }: I.FeedProps) => {
 
     return (
         <>
+            <Header />
+
             <ToggleButton className={styles.toggleButton} options={options} />
 
             <Card
