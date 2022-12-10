@@ -2,11 +2,13 @@ import React, { useState } from 'react'
 import styles from "./index.module.scss"
 
 import Button from 'shared/components/Button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { HeaderProps } from './types/types';
 
 
 const Header = ({ }: HeaderProps) => {
+
+    const navigate = useNavigate();
 
     return (
         <header className={styles.header}>
@@ -28,7 +30,7 @@ const Header = ({ }: HeaderProps) => {
                     buttonStyle='primary'
                 />
 
-                <span className={styles.avatar}></span>
+                <span onClick={() => navigate('/profile')} className={styles.avatar}></span>
             </div>
         </header>
 
