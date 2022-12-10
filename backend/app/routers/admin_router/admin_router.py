@@ -3,7 +3,7 @@ from app.dbManager.Entities import AdminEntity, AdminTokenEntity
 from app.routers.admin_router.admin_models import AdminChangeInfoModel, AdminModel
 
 from app.routers.admin_router.admin_service import AdminService
-from app.routers.common_functions.common_models import AccountVerificationModel, TokenModel
+from app.routers.common_functions.common_models import AccountVerificationModel, EmailModel, TokenModel
 
 admin_router = APIRouter(
     prefix="/admin",
@@ -32,3 +32,8 @@ async def sign_in(body: AccountVerificationModel):
 @admin_router.patch("/change_info")
 async def change_info(body: AdminChangeInfoModel):
     return service.change_admin_inf(body)
+
+
+@admin_router.delete("/delete")
+async def delete_organization(body: EmailModel):
+    return service.delete_user(body, AdminEntity)

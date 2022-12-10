@@ -30,3 +30,9 @@ class BaseService():
             user_id=user.id,
             token=new_token
         )
+    
+    def delete_user(self, body, user_entity):
+        user = is_account_exist(body.email, True, user_entity)
+        session.delete(user)
+        session.commit()
+        return True

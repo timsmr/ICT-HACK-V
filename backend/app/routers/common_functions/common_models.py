@@ -14,3 +14,7 @@ class AccountVerificationModel(BaseModel):
 
 class TokenModel(BaseModel):
     token: str
+    
+
+class EmailModel(BaseModel):
+    email: str

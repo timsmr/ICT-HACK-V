@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from app.dbManager.Entities import OrganizationEntity, OrganizationTokenEntity
-from app.routers.common_functions.common_models import AccountVerificationModel, TokenModel
+from app.routers.common_functions.common_models import AccountVerificationModel, EmailModel, TokenModel
 from app.routers.organization_router.organization_models import OrganizationChangeInfoModel, OrganizationModel
 
 from app.routers.organization_router.organization_service import OrganizationService
@@ -35,3 +35,8 @@ async def sign_in(body: AccountVerificationModel):
 @organization_router.patch("/change_info")
 async def change_info(body: OrganizationChangeInfoModel):
     return service.change_organization_inf(body)
+
+
+@organization_router.delete("/delete")
+async def delete_organization(body: EmailModel):
+    return service.delete_user(body, OrganizationEntity)
