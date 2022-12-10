@@ -1,5 +1,6 @@
+from sqlalchemy import update
 from app.dbManager.Entities import AdminEntity, AdminTokenEntity
-from app.routers.admin_router.admin_models import AdminModel
+from app.routers.admin_router.admin_models import AdminChangeInfoModel, AdminModel
 from app.routers.common_functions.base_service import BaseService
 from app.routers.common_functions.common_models import TokenResponseModel
 from app.routers.common_functions.exceptions import is_account_exist
@@ -38,3 +39,16 @@ class AdminService(BaseService):
             user_id=new_token.user_id,
             token=new_token.token
         )
+        
+    
+    def change_admin_inf(self, body: AdminChangeInfoModel):
+        is_account_exist(body.email, True, AdminEntity)
+        session.execute(update(AdminEntity).
+                        where(AdminEntity.email == body.email).
+                        values(
+                            first_name = body.first_name,
+                            last_name = body.last_name
+                        )
+                        )
+        session.commit()
+        return session.query(AdminEntity).filter_by(email=body.email).order_by(AdminEntity.id).first()
