@@ -16,7 +16,7 @@ service = AdminService()
 
 
 @admin_router.get("/")
-async def hello_function(body: TokenModel):
+async def get_admin(body: TokenModel):
     return service.get_current_user(body, AdminEntity, AdminTokenEntity)
 
 
@@ -42,3 +42,8 @@ async def delete_organization(body: EmailModel):
 @admin_router.patch("/approve_organization")
 async def approve_organization(body: OrganizationApprovementModel):
     return service.approve_organization(body)
+
+
+@admin_router.get("/organizations_to_approve")
+async def organizations_to_approve():
+    return service.organizations_to_approve()

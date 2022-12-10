@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from app.dbManager.Entities import StudentEntity, StudentTokenEntity
 from app.routers.student_router.student_service import StudentService
-from app.routers.student_router.student_models import StudentChangeInfoModel, StudentModel
+from app.routers.student_router.student_models import ResponseModel, StudentChangeInfoModel, StudentModel
 from app.routers.common_functions.common_models import AccountVerificationModel, EmailModel, TokenModel
 
 
@@ -16,7 +16,7 @@ service = StudentService()
 
 
 @student_router.get("/")
-async def hello_function(body: TokenModel):
+async def get_student(body: TokenModel):
     return service.get_current_user(body, StudentEntity, StudentTokenEntity)
 
 
@@ -37,3 +37,8 @@ async def change_info(body: StudentChangeInfoModel):
 @student_router.delete("/delete")
 async def delete_user(body: EmailModel):
     return service.delete_user(body, StudentEntity)
+
+
+@student_router.post("/response_to_project")
+async def response_to_project(body: ResponseModel):
+    return service.send_response(body)

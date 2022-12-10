@@ -1,14 +1,14 @@
 from sqlalchemy import update
 from app.dbManager.Entities import AdminEntity, AdminTokenEntity, OrganizationEntity
 from app.routers.admin_router.admin_models import AdminChangeInfoModel, AdminModel, OrganizationApprovementModel
-from app.routers.common_functions.base_service import BaseService
+from app.routers.common_functions.base_user_service import BaseUserService
 from app.routers.common_functions.common_models import TokenResponseModel
 from app.routers.common_functions.exceptions import is_account_exist
 from app.routers.common_functions.helper_functions import create_access_token, get_expires_delta, get_hashed_password
 from app.dbManager.dbManager import session
 
 
-class AdminService(BaseService):
+class AdminService(BaseUserService):
     def create_user(self, body: AdminModel):
         is_account_exist(body.email, False, AdminEntity)
         created_user = AdminEntity(
@@ -64,3 +64,7 @@ class AdminService(BaseService):
                         )
         session.commit()
         return True
+    
+    
+    def organizations_to_approve(self):
+        return session.query(OrganizationEntity).filter_by(approved=False).order_by(OrganizationEntity.id).all()

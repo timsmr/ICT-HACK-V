@@ -18,3 +18,12 @@ class StudentChangeInfoModel(BaseModel):
 class StudentModel(StudentChangeInfoModel):
     password: str
     
+    
+class ResponseModel(BaseModel):
+    # ! модель для отклика на резюме
+    user_id: int
+    pet_project_id: int
+    message: str
+    project_type: str
+    
+    

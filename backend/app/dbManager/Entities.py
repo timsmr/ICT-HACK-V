@@ -75,5 +75,35 @@ class AdminTokenEntity(Base):
     user_id = Column(Integer, ForeignKey("administrator.id", ondelete="cascade"), nullable=False)
     expire_date = Column(DateTime)
     
+    
+class PetProjectEntity(Base):
+    __tablename__ = "pet_project"
+    
+    id = Column(Integer, index=True, primary_key=True, autoincrement=True)
+    name = Column(String, unique=True)
+    description = Column(String)
+    student_id = Column(Integer, ForeignKey("student.id", ondelete="cascade"), nullable=False)
+    
+
+class ProjectMemberEntity(Base):
+    __tablename__ = "project_member"
+    
+    id = Column(Integer, index=True, primary_key=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey("student.id", ondelete="cascade"), nullable=False)
+    pet_project_id = Column(Integer, ForeignKey("pet_project.id", ondelete="cascade"), nullable=True)
+    role = Column(String)
+    
+    
+class ResponseEntity(Base):
+    __tablename__ = "student_response"
+    
+    id = Column(Integer, index=True, primary_key=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey("student.id", ondelete="cascade"), nullable=False)
+    pet_project_id = Column(Integer, ForeignKey("pet_project.id", ondelete="cascade"), nullable=True)
+    message = Column(String)
+    accepted = Column(Boolean, nullable=True)
+    
+    
+    
 target_metadata = Base.metadata
 
