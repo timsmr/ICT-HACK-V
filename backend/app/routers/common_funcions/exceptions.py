@@ -2,28 +2,28 @@ from fastapi import HTTPException
 from app.dbManager.dbManager import session
 from starlette import status
 from app.dbManager.Entities import StudentEntity
-from app.routers.student_router.helper_functions import password_context
+from app.routers.common_funcions.helper_functions import password_context
 
-def is_user_excist(user_email, required_statement: bool):
+def is_account_excist(email, required_statement: bool, entity):
     """
-    проверяет существование студента с таким email в бд
+    проверяет существование аккаунта с таким email в бд
     required_statement - должен ли существовать
     """
-    user = session.query(StudentEntity).filter_by(email=user_email).order_by(StudentEntity.id).first()
-    if required_statement and not user:
+    account = session.query(entity).filter_by(email=email).order_by(entity.id).first()
+    if required_statement and not account:
         raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail="user does not exist"
+                detail="account does not exist"
             )
-    elif not required_statement and user:
+    elif not required_statement and account:
         raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail="user already exists"
+                detail="account already exists"
             )
-    elif required_statement and user:
-        # для уменьшения количества запросов к бд в случае, если юзер существует
+    elif required_statement and account:
+        # для уменьшения количества запросов к бд в случае, если пользователь существует
         # и должен существовать, сразу его возвращаем
-        return user
+        return account
     else:
         pass
     

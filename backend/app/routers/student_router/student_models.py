@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Optional
 
-from pydantic import UUID4, BaseModel, validator, Field
+from pydantic import BaseModel
 
 
 class StudentModel(BaseModel):
@@ -17,13 +17,4 @@ class StudentModel(BaseModel):
     linkedin: str
     site: str
     password: str
-
-
-class TokenResponseModel(BaseModel):
-    user_id: int
-    token: str
     
-
-class StudentVerificationModel(BaseModel):
-    email: str
-    password: str

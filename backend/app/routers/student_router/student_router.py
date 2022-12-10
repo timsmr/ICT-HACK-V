@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends
 from app.routers.student_router.student_service import StudentService
-from app.routers.student_router.student_models import StudentModel, StudentVerificationModel
+from app.routers.student_router.student_models import StudentModel
+from app.routers.common_funcions.common_models import AccountVerificationModel
 
 
 student_router = APIRouter(
@@ -23,5 +24,5 @@ async def create_user(body: StudentModel):
     return service.create_user(body)
 
 @student_router.get("/sign_in")
-async def sign_in(body: StudentVerificationModel):
+async def sign_in(body: AccountVerificationModel):
     return service.verify_user(body)

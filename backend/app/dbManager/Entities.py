@@ -9,7 +9,7 @@ Base = declarative_base()
 
 
 class StudentEntity(Base):
-    __tablename__ = "student_credits"
+    __tablename__ = "student"
     
     id = Column(Integer, index=True, primary_key=True, autoincrement=True)
     first_name = Column(String(30))
@@ -31,32 +31,34 @@ class StudentTokenEntity(Base):
     
     id = Column(Integer, index=True, primary_key=True, autoincrement=True)
     token = Column(String)
-    user_id = Column(Integer, ForeignKey("student_credits.id", ondelete="cascade"), nullable=False)
+    user_id = Column(Integer, ForeignKey("student.id", ondelete="cascade"), nullable=False)
     expire_date = Column(DateTime)
     
 
 class OrganizationEntity(Base):
-    __tablename__ = "organization_credits"
+    __tablename__ = "organization"
     
     id = Column(Integer, index=True, primary_key=True, autoincrement=True)
     name = Column(String, unique=True)
     description = Column(String)
+    email = Column(String, unique=True)
     contacts = Column(String)
     approved = Column(Boolean, default=False)
     specialization = Column(String)
+    password = Column(String)
     
 
-class OrganizationToken(Base):
+class OrganizationTokenEntity(Base):
     __tablename__ = "organization_token"
     
     id = Column(Integer, index=True, primary_key=True, autoincrement=True)
     token = Column(String)
-    user_id = Column(Integer, ForeignKey("organization_credits.id", ondelete="cascade"), nullable=False)
+    user_id = Column(Integer, ForeignKey("organization.id", ondelete="cascade"), nullable=False)
     expire_date = Column(DateTime)
     
 
 class AdministratorEntity(Base):
-    __tablename__ = "administrator_credits"
+    __tablename__ = "administrator"
     
     id = Column(Integer, index=True, primary_key=True, autoincrement=True)
     first_name = Column(String(30))
@@ -68,7 +70,7 @@ class AdministratorToken(Base):
     
     id = Column(Integer, index=True, primary_key=True, autoincrement=True)
     token = Column(String)
-    user_id = Column(Integer, ForeignKey("administrator_credits.id", ondelete="cascade"), nullable=False)
+    user_id = Column(Integer, ForeignKey("administrator.id", ondelete="cascade"), nullable=False)
     expire_date = Column(DateTime)
     
 target_metadata = Base.metadata

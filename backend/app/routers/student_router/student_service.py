@@ -1,12 +1,13 @@
 from sqlalchemy import update
 from app.dbManager.dbManager import session
-from app.routers.student_router.student_models import StudentModel, TokenResponseModel, StudentVerificationModel
+from app.routers.student_router.student_models import StudentModel
+from app.routers.common_funcions.common_models import AccountVerificationModel, TokenResponseModel
 from app.dbManager.Entities import StudentEntity, StudentTokenEntity
-from app.routers.student_router.helper_functions import get_hashed_password, create_access_token, get_expires_delta
-from app.routers.student_router.exceptions import is_user_excist, verify_password
+from app.routers.common_funcions.helper_functions import get_hashed_password, create_access_token, get_expires_delta
+from app.routers.common_funcions.exceptions import is_account_excist, verify_password
 class StudentService():
     def create_user(self, body: StudentModel):
-        is_user_excist(body.email, False)
+        is_account_excist(body.email, False, StudentEntity)
         created_user = StudentEntity(
             first_name=body.first_name,
             last_name = body.last_name,
@@ -45,8 +46,8 @@ class StudentService():
         )
         
         
-    def verify_user(self, body: StudentVerificationModel):
-        user = is_user_excist(body.email, True)
+    def verify_user(self, body: AccountVerificationModel):
+        user = is_account_excist(body.email, True, StudentEntity)
         verify_password(body.password, user.password)
         new_token = create_access_token(user.email)
         expires_delta = get_expires_delta()
