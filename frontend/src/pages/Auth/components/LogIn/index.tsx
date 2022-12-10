@@ -8,8 +8,10 @@ import Button from '../../../../shared/components/Button'
 import Help from '../../../../shared/components/Help';
 import InputField from '../../../../shared/components/InputField'
 import { InputStyle } from 'shared/components/InputField/types/types';
+import styles from "./index.module.scss"
 
 import * as I from '../types/types';
+import { stepLabelClasses } from '@mui/material';
 
 const LogIn = ({ }: I.LogInProps) => {
 
@@ -67,6 +69,7 @@ const LogIn = ({ }: I.LogInProps) => {
                 inputStyle={loginStyle}
                 onChange={onChangeLoginInput}
             />
+
             <InputField
                 className='mb-15'
                 inputPlaceholder='Пароль'
@@ -76,7 +79,7 @@ const LogIn = ({ }: I.LogInProps) => {
                 onChange={onChangePasswordInput}
             />
             <Button label='Войти' buttonStyle='primary' onClick={onSubmit} />
-            <Help className='mt-10' message='Нет аккаунта?' linkMessage='Тыкни на меня!' link='/auth/register' />
+            <Help className={styles.moveLink} message='Нет аккаунта?' linkMessage='Тыкни на меня!' link='/auth/register' />
         </>
     );
 }

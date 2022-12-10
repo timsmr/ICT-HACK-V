@@ -3,7 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { useStore } from 'stores';
 
 import Button from '../../../../shared/components/Button'
+
+import Header from 'shared/components/Header';
+
 // import Header from '../../../../shared/components/Header';
+
 import Help from '../../../../shared/components/Help';
 import Textarea from 'shared/components/Textarea'
 import InputField from '../../../../shared/components/InputField'
@@ -160,7 +164,7 @@ const Register = ({ }: I.RegisterProps) => {
                             onChange={onChangeSecondPasswordInput}
                         />
                         <Button label='Далее' buttonStyle='primary' onClick={onNextClick} />
-                        <Help className='mt-10' message='Есть аккаунт?' linkMessage='Тыкни на меня!' link='/auth/login' />
+                        <Help className={styles.loginLink} message='Есть аккаунт?' linkMessage='Тыкни на меня!' link='/auth/login' />
                         <p className='auth__help'>
                             <a className='auth__help__link'></a>
                         </p>

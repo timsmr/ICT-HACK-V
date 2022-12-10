@@ -3,7 +3,7 @@ import "./index.modules.scss"
 
 const Footer = () => {
     return(
-        <div className="container">
+        <div className="footer-container">
             <div className="row">
                 <div className="footer-item">
                     <p>Ломоносова, д. 9А, ауд. 2100<br/>
