@@ -24,7 +24,6 @@ async def create_user(body: PetProjectModel):
 async def add_to_project(body: NewMemberModel):
     project = is_project_exist(body.project_name, True, PetProjectEntity)
     user = is_account_exist(body.student_email, True, StudentEntity)
-    is_user_in_project(user.id, project.id, False) # ! не сделано
     return service.add_user_to_project(user.id, project.id, "pet")
 
 

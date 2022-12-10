@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from app.dbManager.Entities import StudentEntity, StudentTokenEntity
 from app.routers.student_router.student_service import StudentService
-from app.routers.student_router.student_models import ResponseModel, StudentChangeInfoModel, StudentModel
+from app.routers.student_router.student_models import ResponseModel, ResponseUnsendModel, StudentChangeInfoModel, StudentModel
 from app.routers.common_functions.common_models import AccountVerificationModel, EmailModel, TokenModel
 
 
@@ -24,7 +24,7 @@ async def get_student(body: TokenModel):
 async def create_user(body: StudentModel):
     return service.create_user(body)
 
-@student_router.get("/sign_in")
+@student_router.post("/sign_in")
 async def sign_in(body: AccountVerificationModel):
     return service.verify_user(body, StudentEntity, StudentTokenEntity)
 
@@ -42,3 +42,8 @@ async def delete_user(body: EmailModel):
 @student_router.post("/response_to_project")
 async def response_to_project(body: ResponseModel):
     return service.send_response(body)
+
+
+@student_router.delete("/unsend_response")
+async def unsend_response(body: ResponseUnsendModel):
+    return service.unsend_response(body)

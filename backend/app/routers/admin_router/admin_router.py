@@ -24,7 +24,7 @@ async def get_admin(body: TokenModel):
 async def create_user(body: AdminModel):
     return service.create_user(body)
 
-@admin_router.get("/sign_in")
+@admin_router.post("/sign_in")
 async def sign_in(body: AccountVerificationModel):
     return service.verify_user(body, AdminEntity, AdminTokenEntity)
 
