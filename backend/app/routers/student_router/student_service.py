@@ -3,9 +3,9 @@ from app.dbManager.dbManager import session
 from app.routers.common_functions.base_user_service import BaseUserService
 from app.routers.student_router.student_models import ResponseModel, StudentChangeInfoModel, StudentModel
 from app.routers.common_functions.common_models import AccountVerificationModel, TokenResponseModel
-from app.dbManager.Entities import StudentEntity, StudentTokenEntity
+from app.dbManager.Entities import PetProjectEntity, ResponseEntity, StudentEntity, StudentTokenEntity
 from app.routers.common_functions.helper_functions import get_hashed_password, create_access_token, get_expires_delta
-from app.routers.common_functions.exceptions import is_account_exist, verify_password
+from app.routers.common_functions.exceptions import is_account_exist, is_project_exist, is_response_already_sent, verify_password
 class StudentService(BaseUserService):
     def create_user(self, body: StudentModel):
         is_account_exist(body.email, False, StudentEntity)
@@ -69,4 +69,15 @@ class StudentService(BaseUserService):
     
     
     def send_response(self, body: ResponseModel):
+        user = is_account_exist(body.user_email, True ,StudentEntity)
+        if body.project_type ==  "pet":
+            project = is_project_exist(body.project_name, True, PetProjectEntity)
+            is_response_already_sent(user.id, project.id, False, "pet")
+            new_response = ResponseEntity(
+                user_id = user.id,
+                pet_project_id = project.id,
+                message = body.message,
+            )
+            session.add_all([new_response])
+            session.commit()
         return True

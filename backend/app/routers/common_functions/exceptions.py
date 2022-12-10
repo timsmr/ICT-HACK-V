@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 from app.dbManager.dbManager import session
 from starlette import status
-from app.dbManager.Entities import ProjectMemberEntity, StudentEntity
+from app.dbManager.Entities import ProjectMemberEntity, ResponseEntity, StudentEntity
 from app.routers.common_functions.helper_functions import password_context
 
 def is_account_exist(email, required_statement: bool, entity):
@@ -59,4 +59,21 @@ def verify_password(password: str, hashed_password: str) -> bool:
 
 def is_user_in_project(user_id: int, project_id: int,  required_statement: bool):
     # ! TO DO
-    return True
+    return required_statement
+
+
+def is_response_already_sent(user_id: int, project_id: int,  required_statement: bool, project_type: str):
+    if project_type == "pet":
+        response = session.query(ResponseEntity).filter_by(user_id = user_id) \
+        .filter_by(pet_project_id = project_id).order_by(ResponseEntity.id).all()
+        if required_statement and not response:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="response is not sent"
+            )
+        elif not required_statement and response:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="response already sent"
+            )
+    return required_statement
