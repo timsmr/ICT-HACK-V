@@ -12,6 +12,7 @@ class StudentChangeInfoModel(BaseModel):
     phone_number: str
     linkedin: str
     site: str
+    specialization: str
     email: str
     
     
