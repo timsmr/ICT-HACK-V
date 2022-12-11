@@ -16,7 +16,7 @@ service = PetProjectService()
 
 
 @pet_project_router.post("/create_project")
-async def create_user(body: PetProjectModel):
+async def create_pet_project(body: PetProjectModel):
     return service.create_project(body)
 
 
@@ -30,3 +30,8 @@ async def add_to_project(body: NewMemberModel):
 @pet_project_router.get("/project_members")
 async def get_project_members(body: PetProjectNameModel):
     return service.get_project_members(body)
+
+
+@pet_project_router.get("/get_all")
+async def get_all_projects():
+    return service.get_projects()

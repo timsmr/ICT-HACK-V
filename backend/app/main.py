@@ -7,6 +7,7 @@ from app.routers.student_router.student_router import student_router
 from app.routers.organization_router.organization_router import organization_router
 from app.routers.admin_router.admin_router import admin_router
 from app.routers.pet_project_router.pet_project_router import pet_project_router
+from app.routers.position_router.position_router import position_router
 from fastapi.security import OAuth2PasswordBearer
 from app.dbManager.dbManager import engine
 from sqlalchemy_utils import database_exists
@@ -18,7 +19,7 @@ app.include_router(student_router)
 app.include_router(organization_router)
 app.include_router(admin_router)
 app.include_router(pet_project_router)
-
+app.include_router(position_router)
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
