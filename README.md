@@ -27,10 +27,11 @@ style="border-width:0" src="https://camo.githubusercontent.com/8935c1c469baaaff5
 
 1. Установить postgresql
 2. создать базу пустую базу данных
-3. В проекте перейти в папку backend
-    1 создать виртуальное окружение
-        2 в консоли pip install -r requirements.txt
-            3 в файлах backend/app/dbManager/dbManager.py и /backend/alembic_/env.py изменить переменные db_username, db_password и db_name на имя пользователя     postgrsql, пароль пользователя и название базы данных соответственно 
+3. 
+- В проекте перейти в папку backend
+- создать виртуальное окружение
+- в консоли pip install -r requirements.txt
+- в файлах backend/app/dbManager/dbManager.py и /backend/alembic_/env.py изменить переменные db_username, db_password и db_name на имя пользователя     postgrsql, пароль пользователя и название базы данных соответственно 
 4. в консоли alembic upgrade head 
 5. запускаем проект uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
