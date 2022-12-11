@@ -25,20 +25,21 @@ backend
 
 Установка на локальной машине для разработки
 
-1.Установить postgresql
-2.создать базу пустую базу данных
-3.В проекте перейти в папку backend
-3.1 создать виртуальное окружение 
-3.2 в консоли pip install -r requirements.txt
-3.3 в файлах backend/app/dbManager/dbManager.py и /backend/alembic_/env.py 
-изменить переменные db_username, db_password и db_name на имя пользователя postgrsql, пароль пользователя и название базы данных соответственно
-4.в консоли alembic upgrade head
+1.Установить postgresql\
+2.создать базу пустую базу данных\
+3.В проекте перейти в папку backend\
+3.1 создать виртуальное окружение \
+3.2 в консоли pip install -r requirements.txt\
+3.3 в файлах backend/app/dbManager/dbManager.py и /backend/alembic_/env.py \
+изменить переменные db_username, db_password и db_name на имя пользователя postgrsql, пароль пользователя и название базы данных соответственно \
+4.в консоли alembic upgrade head \
 5. запускаем проект uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
-*для создание миграции в процессе разработки после изменения файла Entities.py в консоли ввести alembic revision --autogenerate -m "название миграции"
-Запуск в docker
-1. установить docker-compose
-2. перейти в папку backend
+*для создание миграции в процессе разработки после изменения файла Entities.py в консоли ввести alembic revision --autogenerate -m "название миграции"\
+
+Запуск в docker\
+1. установить docker-compose\
+2. перейти в папку backend\
 3. в консоли docker-compose up -d --build
 
 
