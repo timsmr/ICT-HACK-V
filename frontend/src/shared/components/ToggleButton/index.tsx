@@ -4,7 +4,7 @@ import cn from 'classnames';
 import styles from './index.module.scss';
 import * as I from './types/types'
 
-export const ToggleButton = ({ options, className }: I.ToggleButtonProps) => {
+export const ToggleButton = ({ toggleClick, options, className }: I.ToggleButtonProps) => {
     const toggleButtonStyles = cn(
         styles.toggleButton,
         className
@@ -14,6 +14,7 @@ export const ToggleButton = ({ options, className }: I.ToggleButtonProps) => {
 
     const onOptionClick = (event: any) => {
         setOption(event.target.id)
+        toggleClick(event.target.id)
     }
 
     return (

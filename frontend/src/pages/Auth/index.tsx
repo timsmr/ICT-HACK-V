@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import cn from 'classnames'
 import { observer } from 'mobx-react';
 
@@ -10,6 +10,7 @@ import { Link, useParams } from 'react-router-dom'
 import * as I from './types/types';
 import { useStore } from '../../stores';
 import Header from 'shared/components/Header';
+import { ToggleButton } from 'shared/components/ToggleButton';
 
 export const Auth = observer(function Auth({ className }: I.AuthProps) {
     const AuthStyles = cn(
@@ -19,18 +20,27 @@ export const Auth = observer(function Auth({ className }: I.AuthProps) {
 
     const { authType } = useParams();
     const { authStore } = useStore();
+    const [toggleType, setToggleType] = useState<'student' | 'company'>('student');
 
     useEffect(() => {
         if (authType === 'login' || authType === 'register') {
             authStore.changePath(authType)
         }
-    }, [authType]);
+
+        authStore.changeType(toggleType);
+
+    }, [authType, toggleType]);
+
+    const options = [
+        { 'student': 'Я студент' },
+        { 'company': 'Я компания' }
+    ]
 
     return (
         <>
             <Header />
+            <ToggleButton toggleClick={setToggleType} options={options} />
             <div className={AuthStyles}>
-
                 {
                     authType === 'login'
                         ? <LogIn />

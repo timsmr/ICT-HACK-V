@@ -12,6 +12,7 @@ import styles from "./index.module.scss"
 
 import * as I from '../types/types';
 import { stepLabelClasses } from '@mui/material';
+import { observer } from 'mobx-react';
 
 const LogIn = ({ }: I.LogInProps) => {
 
@@ -19,7 +20,7 @@ const LogIn = ({ }: I.LogInProps) => {
     const [passwordValue, setPasswordValue] = useState('');
     const [loginStyle, setLoginStyle] = useState<InputStyle>('');
     const [passwordStyle, setPasswordStyle] = useState<InputStyle>('');
-    const { currentUser } = useStore();
+    const { currentUser, authStore } = useStore();
     const navigate = useNavigate();
 
     const onChangeLoginInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,17 +41,35 @@ const LogIn = ({ }: I.LogInProps) => {
     const onSubmit = async () => {
 
         if (loginValue && passwordValue && ValidateEmail(loginValue)) {
-            await axios.post("/student/sign_in", {
-                "email": loginValue,
-                "password": passwordValue
-            })
-                .then((res) => {
-                    currentUser.setUserToken(res.data.token)
-                    localStorage.setItem('userToken', res.data.token)
+            if (authStore.type == 'student') {
+                await axios.post("/student/sign_in", {
+                    "email": loginValue,
+                    "password": passwordValue
                 })
-                .catch((err) => {
-                    console.log(err);
-                });
+                    .then((res) => {
+                        currentUser.setUserToken(res.data.token)
+                        currentUser.setUserType(authStore.type)
+                        localStorage.setItem('userToken', res.data.token)
+                        localStorage.setItem('userType', authStore.type)
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            } else {
+                await axios.post("/organization/sign_in", {
+                    "email": loginValue,
+                    "password": passwordValue
+                })
+                    .then((res) => {
+                        currentUser.setUserToken(res.data.token)
+                        currentUser.setUserType(authStore.type)
+                        localStorage.setItem('userToken', res.data.token)
+                        localStorage.setItem('userType', authStore.type)
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            }
 
             navigate('/feed');
         } else {
@@ -61,10 +80,9 @@ const LogIn = ({ }: I.LogInProps) => {
 
     return (
         <>
-            {/* <h1>ВХод</h1> */}
             <InputField
                 className='mb-15'
-                inputPlaceholder='Email'
+                inputPlaceholder={`Email ${authStore.type === 'student' ? 'студента' : "компании"}`}
                 value={loginValue}
                 inputType={'email'}
                 inputStyle={loginStyle}
@@ -85,4 +103,4 @@ const LogIn = ({ }: I.LogInProps) => {
     );
 }
 
-export default LogIn;
+export default observer(LogIn);

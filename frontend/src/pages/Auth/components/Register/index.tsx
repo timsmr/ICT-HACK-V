@@ -12,6 +12,7 @@ import styles from './index.module.scss';
 
 import * as I from '../types/types';
 import axios from 'axios';
+import { observer } from 'mobx-react';
 
 const Register = ({ }: I.RegisterProps) => {
 
@@ -29,13 +30,10 @@ const Register = ({ }: I.RegisterProps) => {
     const [passwordStyle, setPasswordStyle] = useState<InputStyle>('');
     const [secondPasswordStyle, setSecondPasswordStyle] = useState<InputStyle>('');
 
-    const [nameValue, setNameValue] = useState('');
-    const [preferencesValue, setPreferencesValue] = useState('');
-    const [nameStyle, setNameStyle] = useState<InputStyle>('');
+    const [companyNameValue, setCompanyNameValue] = useState('');
+    const [companyNameStyle, setCompanyNameStyle] = useState<InputStyle>('');
 
-    const [isValidated, setIsValidated] = useState(false);
-
-    const { currentUser } = useStore();
+    const { currentUser, authStore } = useStore();
     const navigate = useNavigate();
 
     const onChangeFirstNameInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,97 +66,82 @@ const Register = ({ }: I.RegisterProps) => {
         setSecondPasswordStyle('');
     }
 
-    const onChangeNameInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setNameValue(event.target.value);
-        setNameStyle('');
+    const onChangeCompanyNameInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setCompanyNameValue(event.target.value);
+        setCompanyNameStyle('');
     }
 
-    const onChangePreferencesInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setPreferencesValue(event.target.value);
-    }
-
-    const onNextClick = () => {
-        if (passwordValue === secondPasswordValue && loginValue && passwordValue && firstNameValue && lastNameValue && phoneValue) {
-            setIsValidated(true)
+    const onNextClick = async () => {
+        if (authStore.type === 'student') {
+            if (passwordValue === secondPasswordValue && loginValue && passwordValue && firstNameValue && lastNameValue && phoneValue) {
+                await axios.post('/student/create_user', {
+                    "first_name": firstNameValue,
+                    "last_name": lastNameValue,
+                    "bio": "",
+                    "education": "",
+                    "hard_soft_skills": "",
+                    "projects": "",
+                    "telegram": "",
+                    "email": loginValue,
+                    "phone_number": phoneValue,
+                    "linkedin": "",
+                    "site": "",
+                    "password": passwordValue
+                })
+                    .then((res) => {
+                        console.log(res)
+                        currentUser.setUserToken(res.data.token)
+                        localStorage.setItem('userToken', res.data.token)
+                        navigate('/feed')
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            } else {
+                !loginValue && setLoginStyle('warning');
+                !firstNameValue && setFirstNameStyle('warning')
+                !lastNameValue && setLastNameStyle('warning')
+                !phoneValue && setPhoneStyle('warning')
+                if (passwordValue !== secondPasswordValue || !passwordValue) {
+                    setPasswordStyle('warning');
+                    setSecondPasswordStyle('warning');
+                }
+            }
         } else {
-            !loginValue && setLoginStyle('warning');
-            !firstNameValue && setFirstNameStyle('warning')
-            !lastNameValue && setLastNameStyle('warning')
-            !phoneValue && setPhoneStyle('warning')
-            if (passwordValue !== secondPasswordValue || !passwordValue) {
-                setPasswordStyle('warning');
-                setSecondPasswordStyle('warning');
+            if (passwordValue === secondPasswordValue && loginValue && passwordValue && companyNameValue) {
+                await axios.post('/organization/create_organization', {
+                    "name": companyNameValue,
+                    "description": "",
+                    "email": loginValue,
+                    "contacts": "",
+                    "specialization": "",
+                    "password": passwordValue
+                })
+                    .then((res) => {
+                        console.log(res)
+                        currentUser.setUserToken(res.data.token)
+                        localStorage.setItem('userToken', res.data.token)
+                        navigate('/feed')
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            } else {
+                !loginValue && setLoginStyle('warning');
+                !companyNameValue && setCompanyNameStyle('warning');
+                if (passwordValue !== secondPasswordValue || !passwordValue) {
+                    setPasswordStyle('warning');
+                    setSecondPasswordStyle('warning');
+                }
             }
         }
     }
 
-    const onSubmit = async () => {
-
-        if (nameValue) {
-            await axios.post('/auth/create_user', {
-                "name": nameValue,
-                "email": loginValue,
-                "preferences": preferencesValue,
-                "password": passwordValue
-            })
-                .then(function (response) {
-                    console.log(response);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-
-            axios.post("/auth/login", {
-                "grant_type": "password",
-                "username": loginValue,
-                "password": passwordValue
-            }, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            })
-                .then((res) => {
-                    currentUser.setUserToken(res.data.access_token)
-                    localStorage.setItem('userToken', res.data.access_token)
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-
-            navigate('/');
-        } else {
-            setNameStyle('warning');
-        }
-
-
-    };
-
     return (
         <>
             {
-                isValidated
+                authStore.type === 'student'
                     ? <>
-                        <InputField
-                            className={styles.inputRegisterDetail}
-                            inputPlaceholder='Имя'
-                            inputStyle={firstNameStyle}
-                            value={firstNameValue}
-                            onChange={onChangeNameInput}
-                        />
-                        <Textarea
-                            className={styles.textareaRegisterDetail}
-                            textareaPlaceholder='Подсказка для подарка...'
-                            value={preferencesValue}
-                            onChange={onChangePreferencesInput}
-                        />
-                        <Button
-                            className={styles.buttonRegisterDetail}
-                            label='Готово'
-                            buttonStyle='primary'
-                            onClick={onSubmit}
-                        />
-                    </>
-                    : <>
                         <InputField
                             className='mb-15'
                             inputPlaceholder='Фамилия'
@@ -180,40 +163,49 @@ const Register = ({ }: I.RegisterProps) => {
                             inputStyle={phoneStyle}
                             onChange={onChangePhoneInput}
                         />
+                    </>
+                    : <>
                         <InputField
                             className='mb-15'
-                            inputPlaceholder='Email'
-                            value={loginValue}
-                            inputStyle={loginStyle}
-                            onChange={onChangeLoginInput}
+                            inputPlaceholder='Название'
+                            value={companyNameValue}
+                            inputStyle={companyNameStyle}
+                            onChange={onChangeCompanyNameInput}
                         />
-                        <InputField
-                            className='mb-15'
-                            inputPlaceholder='Пароль'
-                            inputType={'password'}
-                            value={passwordValue}
-                            inputStyle={passwordStyle}
-                            onChange={onChangePasswordInput}
-                        />
-                        <InputField
-                            className='mb-15'
-                            inputPlaceholder='Повторите пароль'
-                            inputType={'password'}
-                            value={secondPasswordValue}
-                            inputStyle={secondPasswordStyle}
-                            onChange={onChangeSecondPasswordInput}
-                        />
-                        <Button label='Далее' buttonStyle='primary' onClick={onNextClick} />
-                        <Help className={styles.loginLink} message='Есть аккаунт?' linkMessage='Тыкни на меня!' link='/auth/login' />
-                        <p className='auth__help'>
-                            <a className='auth__help__link'></a>
-                        </p>
                     </>
             }
+            <InputField
+                className='mb-15'
+                inputPlaceholder='Email'
+                value={loginValue}
+                inputStyle={loginStyle}
+                onChange={onChangeLoginInput}
+            />
+            <InputField
+                className='mb-15'
+                inputPlaceholder='Пароль'
+                inputType={'password'}
+                value={passwordValue}
+                inputStyle={passwordStyle}
+                onChange={onChangePasswordInput}
+            />
+            <InputField
+                className='mb-15'
+                inputPlaceholder='Повторите пароль'
+                inputType={'password'}
+                value={secondPasswordValue}
+                inputStyle={secondPasswordStyle}
+                onChange={onChangeSecondPasswordInput}
+            />
+            <Button label='Зарегистрироваться' buttonStyle='primary' onClick={onNextClick} />
+            <Help className={styles.loginLink} message='Есть аккаунт?' linkMessage='Тыкни на меня!' link='/auth/login' />
+            <p className='auth__help'>
+                <a className='auth__help__link'></a>
+            </p>
         </>
     )
 }
 
-export default Register;
+export default observer(Register);
 
 

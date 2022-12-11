@@ -5,5 +5,6 @@ export interface Option {
 }
 
 export type ToggleButtonProps = React.HTMLAttributes<HTMLSpanElement> & {
+    toggleClick?: any;
     options: any[];
 }
