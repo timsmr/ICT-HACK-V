@@ -15,7 +15,7 @@ student_router = APIRouter(
 service = StudentService()
 
 
-@student_router.get("/")
+@student_router.post("/")
 async def get_student(body: TokenModel):
     return service.get_current_user(body, StudentEntity, StudentTokenEntity)
 
