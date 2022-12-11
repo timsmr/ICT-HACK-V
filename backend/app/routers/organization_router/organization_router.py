@@ -40,3 +40,8 @@ async def change_info(body: OrganizationChangeInfoModel):
 @organization_router.delete("/delete")
 async def delete_organization(body: EmailModel):
     return service.delete_user(body, OrganizationEntity)
+
+
+@organization_router.get("/get_all_positions")
+async def get_positions_for_organization(body: EmailModel):
+    return service.get_positions(body)

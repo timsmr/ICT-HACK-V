@@ -29,6 +29,9 @@ class PetProjectService(BaseProjectService):
     def get_project_members(self, body: PetProjectNameModel):
         project = is_project_exist(body.name, True, PetProjectEntity)
         return session.query(ProjectMemberEntity).filter_by(pet_project_id = project.id).order_by(ProjectMemberEntity.id).all()
-        
+    
+    
+    def get_projects(self):
+        return session.query(PetProjectEntity).all()
     
         

@@ -1,8 +1,8 @@
 """init
 
-Revision ID: c7eb1f4caaab
+Revision ID: 4239e6082e39
 Revises: 
-Create Date: 2022-12-10 19:24:56.102360
+Create Date: 2022-12-11 10:28:41.371377
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'c7eb1f4caaab'
+revision = '4239e6082e39'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -91,6 +91,17 @@ def upgrade() -> None:
     sa.UniqueConstraint('name')
     )
     op.create_index(op.f('ix_pet_project_id'), 'pet_project', ['id'], unique=False)
+    op.create_table('position',
+    sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
+    sa.Column('description', sa.String(), nullable=True),
+    sa.Column('requirements', sa.String(), nullable=True),
+    sa.Column('organization_id', sa.Integer(), nullable=True),
+    sa.Column('is_active', sa.Boolean(), nullable=True),
+    sa.Column('salary', sa.String(), nullable=True),
+    sa.ForeignKeyConstraint(['organization_id'], ['organization.id'], ondelete='cascade'),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_index(op.f('ix_position_id'), 'position', ['id'], unique=False)
     op.create_table('student_token',
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('token', sa.String(), nullable=True),
@@ -132,6 +143,8 @@ def downgrade() -> None:
     op.drop_table('project_member')
     op.drop_index(op.f('ix_student_token_id'), table_name='student_token')
     op.drop_table('student_token')
+    op.drop_index(op.f('ix_position_id'), table_name='position')
+    op.drop_table('position')
     op.drop_index(op.f('ix_pet_project_id'), table_name='pet_project')
     op.drop_table('pet_project')
     op.drop_index(op.f('ix_organization_token_id'), table_name='organization_token')

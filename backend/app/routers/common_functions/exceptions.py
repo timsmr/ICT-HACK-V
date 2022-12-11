@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 from app.dbManager.dbManager import session
 from starlette import status
-from app.dbManager.Entities import ProjectMemberEntity, ResponseEntity, StudentEntity
+from app.dbManager.Entities import PositionEntity, ProjectMemberEntity, ResponseEntity, StudentEntity
 from app.routers.common_functions.helper_functions import password_context
 
 def is_account_exist(email, required_statement: bool, entity):
@@ -93,3 +93,13 @@ def is_response_already_sent(user_id: int, project_id: int,  required_statement:
         elif required_statement and response:
             return response
     pass
+
+
+def is_position_exist(position_id, required_statement: bool = True):
+    position = session.query(PositionEntity).filter_by(id = position_id).first()
+    if required_statement and not position:
+        raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="position does not exist"
+            )
+    return position

@@ -104,6 +104,16 @@ class ResponseEntity(Base):
     accepted = Column(Boolean, nullable=True)
     
     
+class PositionEntity(Base):
+    __tablename__  = "position"
+    
+    id = Column(Integer, index=True, primary_key=True, autoincrement=True)
+    description = Column(String, nullable=True)
+    requirements = Column(String, nullable=True)
+    organization_id = Column(Integer, ForeignKey("organization.id", ondelete="cascade"))
+    is_active = Column(Boolean, default=True)
+    salary = Column(String)
+    
     
 target_metadata = Base.metadata
 

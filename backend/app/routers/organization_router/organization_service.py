@@ -1,11 +1,11 @@
 from sqlalchemy import update
-from app.dbManager.Entities import OrganizationEntity, OrganizationTokenEntity
+from app.dbManager.Entities import OrganizationEntity, OrganizationTokenEntity, PositionEntity
 from app.dbManager.dbManager import session
 from app.routers.common_functions.base_user_service import BaseUserService
 from app.routers.common_functions.helper_functions import get_hashed_password, create_access_token, get_expires_delta
 from app.routers.common_functions.exceptions import is_account_exist, verify_password
 from app.routers.organization_router.organization_models import OrganizationModel
-from app.routers.common_functions.common_models import AccountVerificationModel, TokenResponseModel
+from app.routers.common_functions.common_models import AccountVerificationModel, EmailModel, TokenResponseModel
 
 
 class OrganizationService(BaseUserService):
@@ -56,3 +56,7 @@ class OrganizationService(BaseUserService):
                         )
         session.commit()
         return session.query(OrganizationEntity).filter_by(email=body.email).order_by(OrganizationEntity.id).first()
+    
+    def get_positions(self, body: EmailModel):
+        organization = is_account_exist(body.email, True, OrganizationEntity)
+        return session.query(PositionEntity).filter_by(organization_id=organization.id).all()
