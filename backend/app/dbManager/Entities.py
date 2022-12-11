@@ -23,6 +23,7 @@ class StudentEntity(Base):
     phone_number = Column(String, unique=True)
     linkedin = Column(String, unique = True, nullable=True)
     site = Column(String, nullable=True, )
+    specialization = Column(String, nullable=True)
     password = Column(String)
     
 

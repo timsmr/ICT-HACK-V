@@ -15,7 +15,7 @@ admin_router = APIRouter(
 service = AdminService()
 
 
-@admin_router.router("/")
+@admin_router.post("/")
 async def get_admin(body: TokenModel):
     return service.get_current_user(body, AdminEntity, AdminTokenEntity)
 
