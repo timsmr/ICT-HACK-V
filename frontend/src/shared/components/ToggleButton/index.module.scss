@@ -6,6 +6,19 @@
     width: clamp(28rem, 50vw, 94rem);
     background-color: #282828;
     border-radius: 40px;
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    & {
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+    }
 }
 
 .notActive {
@@ -17,7 +30,7 @@
     margin: 0;
     padding-top: 12px;
     padding-bottom: 12px;
-    font-size: 1.8rem;
+    font-size: 2.2rem;
     font-weight: 500;
     background-color: #282828;
     cursor: pointer;
@@ -32,7 +45,7 @@
     margin: 0;
     padding-top: 12px;
     padding-bottom: 12px;
-    font-size: 1.8rem;
+    font-size: 2.2rem;
     font-weight: 500;
     background-color: #5F4BFF;
     cursor: pointer;
@@ -52,11 +65,13 @@
         width: auto;
         padding: 10px 20px;
         margin-right: 20px;
+        font-size: 5rem;
     }
 
     .notActive {
         width: auto;
         padding: 10px 20px;
         margin-right: 20px;
+        font-size: 5rem;
     }
 }

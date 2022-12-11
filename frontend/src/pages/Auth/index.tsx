@@ -39,7 +39,7 @@ export const Auth = observer(function Auth({ className }: I.AuthProps) {
     return (
         <>
             <Header />
-            <ToggleButton toggleClick={setToggleType} options={options} />
+            <ToggleButton className={styles.toggleButton} toggleClick={setToggleType} options={options} />
             <div className={AuthStyles}>
                 {
                     authType === 'login'

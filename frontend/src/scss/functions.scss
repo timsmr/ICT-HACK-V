@@ -1,0 +1,9 @@
+@function get-mobile-unit($size) {
+  @return calc(var(--mobile-unit) * #{$size});
+}
+
+@mixin screen-small {
+  @media (max-width: 700px) {
+    @content;
+  }
+}

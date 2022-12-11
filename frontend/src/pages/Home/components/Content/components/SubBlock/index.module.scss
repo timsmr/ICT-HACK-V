@@ -1,0 +1,73 @@
+@import "scss/functions.scss";
+
+.root {
+  padding: 0 25.8rem 0 33.2rem;
+  margin-bottom: 17.5rem;
+  position: relative;
+}
+
+.title {
+  font-size: 6.4rem;
+  font-weight: 600;
+  line-height: 8.7rem;
+  text-align: center;
+  color: #ededed;
+  position: relative;
+  z-index: 2;
+}
+
+.columns {
+  display: flex;
+  flex-flow: row nowrap;
+  margin-top: 4.7rem;
+}
+
+.column {
+  margin-right: 4rem;
+}
+
+.column__title {
+  font-weight: 600;
+  font-size: 3.2rem;
+  line-height: 4.4rem;
+  color: #ededed;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.column__text {
+  font-size: 2rem;
+  line-height: 2.7rem;
+  color: #ffffff;
+  margin-top: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+@include screen-small {
+  .title {
+    font-size: get-mobile-unit(20);
+  }
+
+  .columns {
+    flex-flow: column nowrap;
+    margin-top: get-mobile-unit(20);
+  }
+
+  .column {
+    margin-bottom: 3rem;
+  }
+
+  .column__title {
+    font-size: get-mobile-unit(16);
+    line-height: get-mobile-unit(20);
+    margin-bottom: get-mobile-unit(4);
+  }
+
+  .column__text {
+    margin-top: get-mobile-unit(15);
+    font-size: get-mobile-unit(10);
+    line-height: get-mobile-unit(15);
+  }
+}

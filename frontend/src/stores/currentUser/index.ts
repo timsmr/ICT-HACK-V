@@ -19,6 +19,11 @@ class CurrentUserStore {
     setUserType = (value: CurrentUserStore["userType"],) => {
         this.userType = value;
     }
+
+    clear = () => {
+        this.userToken = null
+        this.userType = null
+    }
 }
 
 export { CurrentUserStore };
