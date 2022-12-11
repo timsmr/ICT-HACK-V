@@ -1,3 +1,7 @@
+![logo_osnovnoy_angliyskiy_belyy](https://user-images.githubusercontent.com/63160594/206896024-d4534f42-85a5-4555-92c6-8321f91d55d9.png)
+
+
+
 # ICT-HACK-V | Цифровая платформа
 
 # Описание
