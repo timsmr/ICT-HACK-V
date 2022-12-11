@@ -2,6 +2,7 @@ import uvicorn
 from fastapi import FastAPI, Depends
 from fastapi.responses import HTMLResponse
 import sys
+from fastapi.middleware.cors import CORSMiddleware
 sys.path.append("..") # Adds higher directory to python modules path.
 from app.routers.student_router.student_router import student_router
 from app.routers.organization_router.organization_router import organization_router
@@ -21,6 +22,16 @@ app.include_router(admin_router)
 app.include_router(pet_project_router)
 app.include_router(position_router)
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.on_event("shutdown")
