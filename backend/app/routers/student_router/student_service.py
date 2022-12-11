@@ -21,6 +21,7 @@ class StudentService(BaseUserService):
             phone_number = body.phone_number,
             linkedin = body.linkedin,
             site = body.site,
+            specialization = body.specialization,
             password = get_hashed_password(body.password)
         )
         
