@@ -17,6 +17,9 @@
 
 
 
+# Дополнительно
+
+[Ссылка на разработанный нами концепт платформы в Figma](https://www.figma.com/file/jGSuQvwiHX4dSR6ez00nHU/%D1%81%D0%B2%D0%B5%D0%BA%D0%BB%D0%BE "Наслаждайтесь!")
 
 
 
