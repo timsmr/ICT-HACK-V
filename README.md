@@ -20,10 +20,10 @@ style="border-width:0" src="https://camo.githubusercontent.com/8935c1c469baaaff5
 
 
 # Установка
-backend
+## Backend
 
 
-Установка на локальной машине для разработки
+### Установка на локальной машине для разработки
 
 1. Установить postgresql\
 2. создать базу пустую базу данных\
@@ -37,7 +37,7 @@ backend
 
 *для создание миграции в процессе разработки после изменения файла Entities.py в консоли ввести alembic revision --autogenerate -m "название миграции"
 
-Запуск в docker
+### Запуск в docker
 1. установить docker-compose
 2. перейти в папку backend
 3. в консоли docker-compose up -d --build
