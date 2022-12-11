@@ -17,7 +17,7 @@ organization_router = APIRouter(
 service = OrganizationService()
 
 
-@organization_router.get("/")
+@organization_router.post("/")
 async def get_organization(body: TokenModel):
     return service.get_current_user(body, OrganizationEntity, OrganizationTokenEntity)
 
