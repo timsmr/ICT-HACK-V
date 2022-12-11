@@ -51,6 +51,8 @@ const LogIn = ({ }: I.LogInProps) => {
                         currentUser.setUserType(authStore.type)
                         localStorage.setItem('userToken', res.data.token)
                         localStorage.setItem('userType', authStore.type)
+
+                        currentUser.getData()
                     })
                     .catch((err) => {
                         console.log(err);
@@ -65,6 +67,9 @@ const LogIn = ({ }: I.LogInProps) => {
                         currentUser.setUserType(authStore.type)
                         localStorage.setItem('userToken', res.data.token)
                         localStorage.setItem('userType', authStore.type)
+
+                        currentUser.getData()
+
                     })
                     .catch((err) => {
                         console.log(err);

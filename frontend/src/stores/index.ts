@@ -19,6 +19,8 @@ export class RootStore {
 
     init = async () => {
         this.currentUser.setUserToken(localStorage.getItem('userToken'))
+        // this.currentUser.setUserType(localStorage.getItem('userType'))
+
     }
 }
 export const RootStoreContext = createContext<RootStore | null>(null);

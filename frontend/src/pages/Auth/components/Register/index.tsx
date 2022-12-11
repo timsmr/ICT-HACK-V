@@ -91,7 +91,12 @@ const Register = ({ }: I.RegisterProps) => {
                     .then((res) => {
                         console.log(res)
                         currentUser.setUserToken(res.data.token)
+                        currentUser.setUserType(authStore.type)
                         localStorage.setItem('userToken', res.data.token)
+                        localStorage.setItem('userType', authStore.type)
+
+                        currentUser.getData()
+
                         navigate('/feed')
                     })
                     .catch((error) => {
@@ -118,9 +123,13 @@ const Register = ({ }: I.RegisterProps) => {
                     "password": passwordValue
                 })
                     .then((res) => {
-                        console.log(res)
                         currentUser.setUserToken(res.data.token)
+                        currentUser.setUserType(authStore.type)
                         localStorage.setItem('userToken', res.data.token)
+                        localStorage.setItem('userType', authStore.type)
+
+                        currentUser.getData()
+
                         navigate('/feed')
                     })
                     .catch((error) => {
