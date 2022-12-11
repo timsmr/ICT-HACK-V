@@ -35,11 +35,11 @@ backend
 4.в консоли alembic upgrade head \
 5. запускаем проект uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
-*для создание миграции в процессе разработки после изменения файла Entities.py в консоли ввести alembic revision --autogenerate -m "название миграции"\
+*для создание миграции в процессе разработки после изменения файла Entities.py в консоли ввести alembic revision --autogenerate -m "название миграции"
 
-Запуск в docker\
-1. установить docker-compose\
-2. перейти в папку backend\
+Запуск в docker
+1. установить docker-compose
+2. перейти в папку backend
 3. в консоли docker-compose up -d --build
 
 
