@@ -7,8 +7,8 @@ from app.dbManager.dbManager import session
 
 class BaseUserService():
     def get_current_user(self, body: TokenModel, user_entity, token_entity):
-        user = session.query(token_entity, user_entity).filter(token_entity.token == body.token).filter(token_entity.user_id == user_entity.id).all()
-        return user[0]
+        user = session.query(token_entity, user_entity).filter(token_entity.token == body.token).filter(token_entity.user_id == user_entity.id).first()
+        return user
     
     
     #авторизация для любой из 3х сущностей
