@@ -4,9 +4,9 @@ from pydantic import BaseModel
 class OrganizationChangeInfoModel(BaseModel):
     email: str
     name: str
-    description: str | None
-    contacts: str | None
-    specialization: str | None
+    description: str 
+    contacts: str 
+    specialization: str 
     
     
 class OrganizationModel(OrganizationChangeInfoModel):

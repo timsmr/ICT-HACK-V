@@ -4,15 +4,15 @@ from pydantic import BaseModel
 class StudentChangeInfoModel(BaseModel):
     first_name: str
     last_name: str
-    bio: str | None
-    education: str | None
-    hard_soft_skills: str| None
-    projects: str| None
-    telegram: str | None
+    bio: str 
+    education: str 
+    hard_soft_skills: str
+    projects: str
+    telegram: str 
     phone_number: str
-    linkedin: str| None
-    site: str| None
-    specialization: str| None
+    linkedin: str
+    site: str
+    specialization: str
     email: str
     
     
